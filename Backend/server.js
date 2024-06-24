@@ -24,10 +24,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
-app.use(express.static(path.join(__dirname, '/fronted/dist')));
+app.use(express.static(path.join(__dirname, '/Fronted/dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'fronted', 'dist', 'index.html'))
+  res.sendFile(path.join(__dirname, 'Fronted', 'dist', 'index.html'))
 })
 
 server.listen(PORT, () => {
