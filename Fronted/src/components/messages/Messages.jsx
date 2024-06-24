@@ -8,7 +8,8 @@ function Messages() {
   const { loading, messages } = useGetMessages();
 
   useListenMessages();
-
+  console.log('hello', messages);
+  
   const lastMessageRef = useRef();
 
   useEffect(() => {
