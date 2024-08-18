@@ -4,6 +4,7 @@ import MessageInput from "./MessageInput.jsx";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../../zustand/useConversation.js";
 import { useAuthContext } from "../../context/AuthContex.jsx";
+import { IoArrowBackCircle } from "react-icons/io5";
 
 function MessageContainer() {
   const { selectedConversation, setSelectedConversation } = useConversation();
@@ -15,14 +16,22 @@ function MessageContainer() {
   }, [setSelectedConversation]);
 
   return (
-    <div className="md:min-w-[450px] flex flex-col">
+    <div
+      className={`w-80 md:min-w-[450px] flex flex-col ${
+        !selectedConversation ? "hidden md:flex" : "flex"
+      }`}
+    >
       {!selectedConversation ? (
         <NoChatSelected />
       ) : (
         <>
           {/* HEADER */}
           <div className="bg-slate-500 px-4 py-2 mb-2 flex justify-between">
-            <div>
+            <div className="flex gap-3 align-text-bottom">
+              <IoArrowBackCircle
+                className="w-6 h-6 text-white cursor-pointer md:hidden"
+                onClick={() => setSelectedConversation(null)}
+              />
               <span className="label-text">To:</span>{" "}
               <span className="text-gray-900 font-bold">
                 {selectedConversation.fullName}

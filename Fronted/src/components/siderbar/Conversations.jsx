@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import Conversation from "./Conversation.jsx";
 import useGetConversations from "../../hooks/useGetConversations.js";
 import { getRandomEmojis } from "../../utils/emojis.js";
 
-function Conversations() {
+const Conversations = memo(() => {
   const { loading, conversations } = useGetConversations();
   console.log("hello world", conversations);
   return (
@@ -19,7 +19,7 @@ function Conversations() {
       {loading ? <span className="loading loading-spinner"></span> : null}
     </div>
   );
-}
+})
 
 export default Conversations;
 
