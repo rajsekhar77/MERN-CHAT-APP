@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
+import { decryptMessage } from "../utils/crypto.utils";
 
 function useGetMessages() {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
+
+  const secretKey = 'your-secret-key';
 
   useEffect(() => {
     const getMessages = async () => {
@@ -15,7 +18,14 @@ function useGetMessages() {
         if (data.error) {
           throw new Error(data.error);
         }
-        setMessages(data);
+
+        // Decrypt the messages before setting them in state
+        const decryptedMessages = data.map(msg => ({
+          ...msg,
+          message: decryptMessage(msg.message, secretKey)
+        }));
+
+        setMessages(decryptedMessages);
       } catch (error) {
         toast.error(error.message);
       } finally {

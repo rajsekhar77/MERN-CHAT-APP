@@ -1,15 +1,21 @@
 import { useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
+import { encryptMessage, decryptMessage } from "../utils/crypto.utils";
 
 function useSendMessage() {
     const [loading, setLoading] = useState(false);
 
     const {messages, setMessages, selectedConversation} = useConversation();
 
+    const secretKey = 'your-secret-key';
+
     const sendMessage = async (message) => {
         setLoading(true);
         try {
+            // Encrypt the message before sending
+            const encryptedMessage = encryptMessage(message, secretKey);
+            
             const res = await fetch(`/api/messages/send/${selectedConversation?._id}`, {
                 method:"POST",
                 headers: {"Content-Type": "application/json"},
@@ -20,7 +26,14 @@ function useSendMessage() {
             if(data.error) {
                 throw new Error(data.error);
             }
-            setMessages([...messages, data]);
+
+            // Optionally decrypt the message for immediate display (if needed)
+            const decryptedMessage = {
+                ...data,
+                message: decryptMessage(data.message, secretKey),
+            };
+
+            setMessages([...messages, decryptedMessage]);
         } catch (error) {
             toast.error(error.message);
         } finally {
