@@ -3,12 +3,12 @@ import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
 import { encryptMessage, decryptMessage } from "../utils/crypto.utils";
 
+const secretKey = import.meta.env.VITE_CRYPTO_SECRET
+
 function useSendMessage() {
     const [loading, setLoading] = useState(false);
 
     const {messages, setMessages, selectedConversation} = useConversation();
-
-    const secretKey = 'your-secret-key';
 
     const sendMessage = async (message) => {
         setLoading(true);

@@ -8,7 +8,7 @@ function useListenMessages() {
   const { socket } = useSocketContext();
   const { messages, setMessages , selectedConversation} = useConversation();
 
-  const secretKey = 'your-secret-key';
+  const secretKey = import.meta.env.VITE_CRYPTO_SECRET
 
   useEffect(() => {
     socket?.on("newMessage", (newMessage) => {
