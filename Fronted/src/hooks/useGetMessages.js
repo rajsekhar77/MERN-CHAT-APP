@@ -8,7 +8,7 @@ function useGetMessages() {
   const { messages, setMessages, selectedConversation } = useConversation();
 
   const secretKey = import.meta.env.VITE_CRYPTO_SECRET
-  console.log(secretKey, 'secret');
+  // console.log(secretKey, 'secret');
 
   useEffect(() => {
     const getMessages = async () => {

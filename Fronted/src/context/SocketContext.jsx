@@ -22,7 +22,7 @@ export const SocketContextProvider = ({ children }) => {
       });
 
       setSocket(socket);
-      console.log("first time rendered");
+      // console.log("first time rendered");
 
       // socket.on() is used to listen to the events. can be used both on client and server side
       socket.on("getOnlineUsers", (users) => {
